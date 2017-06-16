@@ -1,0 +1,107 @@
+@font-face {
+  font-family:"PingFangRegular";
+ src:url('../font/PingFangRegular.ttf')
+}
+img{
+  display: block;
+}
+body,ul,a,p,span{
+  font-family: "PingFangRegular", serif;
+  margin:0;
+  padding:0;
+}
+ul,a{
+  list-style: none;
+  text-decoration: none;
+}
+.shop_searchbar{
+  position: relative;
+  height: 64px;
+  padding:12px 0;
+}
+.return_png{
+  position: absolute;
+  left:30px;
+  top:30px;
+}
+.sarch_bar_warp{
+  position: absolute;
+  width:488px;
+  height:64px;
+  background-color: #F2F3F6;
+  border-radius: 8px;
+  left:84px;
+}
+.search_icon{
+  position: absolute;
+  left:22px;
+  height: 64px;
+  background:url("../img/Search.png") center no-repeat;
+  width:26px;
+}
+.search_bar input{
+  position: absolute;
+  left:64px;
+  width:424px;
+  font-size: 28px;
+  background-color: #F2F3F6;
+  color:#23252F;
+  line-height: 60px;
+  border:none;
+  outline: medium;
+}
+.classify{
+  padding-top: 8px;
+  position: absolute;
+  left:604px;
+}
+.classify a{
+  display: block;
+}
+.classify_text{
+  padding-top:4px;
+  font-size: 20px;
+  text-decoration: none;
+  color:#2B3857;
+}
+.more{
+  position: absolute;
+  left:688px;
+}
+.more .more_icon{
+  height: 44px;
+  width: 44px;
+  display: inline-block;
+ margin-top: 10px;
+  background: url('../img/more.png');
+}
+.navi{
+  width:750px;
+  overflow: hidden;
+  font-size: 28px;
+  line-height: 34px;
+  padding:20px 0 24px 46px;
+  border-bottom: 2px solid #E7E7E7;
+}
+.navi li{
+  float:left;
+  margin-right:106px;
+}
+.navi li:last-child{
+  margin-right: 0;
+}
+a{
+  color:#2B3857;
+}
+.selected,.navi li a:hover{
+  color:rgb(255, 59, 94);
+}
+
+.checklist_icon{
+  background: url("../img/checklist@2x.png");
+  width:34px;
+  height: 28px;
+}
+.poster{
+  margin-bottom: 14px;
+}
