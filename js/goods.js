@@ -1,5 +1,5 @@
 
-var page = 1;
+
     //$(".navi li a").click(function(){
     //    $(this).addClass("selected").siblings().removeClass("selected");
     //})
@@ -35,8 +35,12 @@ $(function(){
 
 var store={
     init:function(){
+        this.i=1;//分页
+        this.pageNumber='';//标签id
         this.changeNav();
         this.changeStyle();
+        this.getTitle(1);
+        this.getScroll();
     },
     //点击导航
     changeNav:function(){
@@ -52,59 +56,81 @@ var store={
         var float=true;
         $(".checklist_icon").click(function(){
             if(float==true){
-                $(".checklist_icon").attr('src','img/checklist-a@2x.png');
+                $(".checklist_icon").attr('src','img/checklist-b@2x.png');
                 $(".goods").attr('id','goods_col');
                 float=false;
             }else{
-                $(".checklist_icon").attr('src','img/checklist@2x.png');
+                $(".checklist_icon").attr('src','img/checklist-a@2x.png');
                 $(".goods").attr('id','goods_row');
                 float=true;
             }
         })
 },
+    //获取标签
+    getTitle:function(pageNumber){
+        var that=this;
+        $.ajax({
+            url: shopPath+"/shop/prd/b/findPrdList",
+            dataType:'json',
+            data:{
+                spaceid:37226346680,
+                pageNumber:pageNumber,
+                pageSize:10
+            },
+            success:function(res){
+                console.log(res);
+                var result=res.data;
+                var div='';
+                for(var i=0;i<result.length;i++){
+                    div+='<div class="goods" id="goods_row">'+
+                        '<div class="goods_img">'+'<img src=" '+result[i].coverImgurl+'" alt="">'+'</div>'+
+                        '<div class="goods_details_box1">'+
+                        '<div class="product_details">'+
+                        '<p class="product_description">'+
+                        result[i].productName+
+                        '</p>'+
+                        ' <p class="product_adds">'+ result[i].deliverAddress+
+                        '</p>'+
+                        '<img src="img/baoyou.png" class="poster">'+
+                        '</img>'+
+                        '<span class="goods_price_icon">￥</span>'+
+                        '<span class="goods_price">'+result[i].salePrice +
+                        '</span>'+'<span class="people">'+
+                        result[i].salesVolume+
+                        '</span>'+
+                        '<span class="pay">付款</span>'+
+                        '<span class="cart"></span>'+
+                        '</div>'+
+                        '</div>'+
+                        '</div>'
+                }
+                $(".products").append(div);
+
+            },
+            error: function (XMLHttpRequest, textStatus, thrownError) {
+            }
+        })
+    },
+    //滚动条滚动 获取新内容
+    getScroll:function(){
+        $(window).scroll(function(){
+            var that=this;
+            var scrollTop=parseInt($(this).scrollTop());
+            var scrollHeight=$(document).height();
+            var windowHeight=$(this).height();
+            console.log(windowHeight)
+            if(scrollTop+windowHeight==scrollHeight){
+                this.i=this.i;
+               store.getTitle(2)
+
+
+            }
+        })
+    }
+
 };
 
     store.init();
 
-    $.ajax({
-        url: shopPath+"/shop/prd/b/findPrdList",
-        dataType:'json',
-        data:{
-            spaceid:37226346680,
-            pageNumber:page++,
-            pageSize:10
-        },
-        success:function(res){
-            console.log(res);
-            var result=res.data;
-            var div='';
-            for(var i=0;i<result.length;i++){
-                div+='<div class="goods" id="goods_row">'+
-                    '<div class="goods_img">'+'<img src=" '+result[i].coverImgurl+'" alt="">'+'</div>'+
-                    '<div class="goods_details_box1">'+
-                    '<div class="product_details">'+
-                    '<p class="product_description">'+
-                    result[i].productName+
-                    '</p>'+
-                    ' <p class="product_adds">'+ result[i].deliverAddress+
-                    '</p>'+
-                    '<img src="img/baoyou.png" class="poster">'+
-                    '</img>'+
-                    '<span class="goods_price_icon">￥</span>'+
-                    '<span class="goods_price">'+result[i].salePrice +
-                    '</span>'+'<span class="people">'+
-                    result[i].salesVolume+
-                    '</span>'+
-                    '<span class="pay">付款</span>'+
-                    '<span class="cart"></span>'+
-                    '</div>'+
-                    '</div>'+
-                    '</div>'
-            }
-            $(".products").append(div);
 
-        },
-        error: function (XMLHttpRequest, textStatus, thrownError) {
-        }
-    })
 })
