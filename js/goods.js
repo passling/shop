@@ -75,13 +75,16 @@ var store={
             data:{
                 spaceid:37226346680,
                 pageNumber:pageNumber,
-                pageSize:10
+                pageSize:5
             },
             success:function(res){
                 console.log(res);
                 var result=res.data;
                 var div='';
+                var  checklist_icon=$(".checklist_icon")[0].src;
+                console.log(checklist_icon)
                 for(var i=0;i<result.length;i++){
+
                     div+='<div class="goods" id="goods_row">'+
                         '<div class="goods_img">'+'<img src=" '+result[i].coverImgurl+'" alt="">'+'</div>'+
                         '<div class="goods_details_box1">'+
@@ -113,15 +116,15 @@ var store={
     },
     //滚动条滚动 获取新内容
     getScroll:function(){
+        var that=this;
         $(window).scroll(function(){
-            var that=this;
             var scrollTop=parseInt($(this).scrollTop());
             var scrollHeight=$(document).height();
             var windowHeight=$(this).height();
-            console.log(windowHeight)
             if(scrollTop+windowHeight==scrollHeight){
-                this.i=this.i;
-               store.getTitle(2)
+                that.i= that.i + 1;
+                console.log(that.i)
+              that.getTitle(that.i)
 
 
             }
